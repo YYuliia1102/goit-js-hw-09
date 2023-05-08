@@ -1,5 +1,3 @@
-// commonjs
-const flatpickr = require("flatpickr");
 
 // Описаний в документації
 import flatpickr from "flatpickr";
@@ -26,7 +24,7 @@ const options = {
 
     },
 };
-const fp = flatpickr(myInput, options);  // flatpickr
+flatpickr(myInput, options);  // flatpickr
 
 
 const startButton = document.querySelector('[data-start]')
@@ -44,7 +42,7 @@ function calculateTimer() {
 
     const date = new Date();
     const inputDate = new Date(myInput.value);
-    if ((inputDate.getTime() - date.getTime() <= 0)) {
+    if ((inputDate.getTime() - date.getTime()) <= 0) {
         clearInterval(intervalId);
     } else {
         const timeLeft = convertMs(inputDate.getTime() - date.getTime())
