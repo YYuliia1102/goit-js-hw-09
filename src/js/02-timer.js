@@ -32,23 +32,27 @@ const fp = flatpickr(myInput, options);  // flatpickr
 const startButton = document.querySelector('[data-start]')
 startButton.disabled = true;
 
+let intervalId;
+
 startButton.addEventListener("click", startTimer)
 
 function startTimer() {
-    setInterval(calculateTimer, 1000)
+    intervalId = setInterval(calculateTimer, 1000)
 }
 
 function calculateTimer() {
 
     const date = new Date();
     const inputDate = new Date(myInput.value);
-
-    const timeLeft = convertMs(inputDate.getTime() - date.getTime())
-    document.querySelector("[data-days]").innerHTML = addLeadingZero(timeLeft.days);
-    document.querySelector("[data-hours]").innerHTML = addLeadingZero(timeLeft.hours);
-    document.querySelector("[data-minutes]").innerHTML = addLeadingZero(timeLeft.minutes);
-    document.querySelector("[data-seconds]").innerHTML = addLeadingZero(timeLeft.seconds);
-
+    if ((inputDate.getTime() - date.getTime() <= 0)) {
+        clearInterval(intervalId);
+    } else {
+        const timeLeft = convertMs(inputDate.getTime() - date.getTime())
+        document.querySelector("[data-days]").innerHTML = addLeadingZero(timeLeft.days);
+        document.querySelector("[data-hours]").innerHTML = addLeadingZero(timeLeft.hours);
+        document.querySelector("[data-minutes]").innerHTML = addLeadingZero(timeLeft.minutes);
+        document.querySelector("[data-seconds]").innerHTML = addLeadingZero(timeLeft.seconds);
+    }
 }
 
 function addLeadingZero(number) {
